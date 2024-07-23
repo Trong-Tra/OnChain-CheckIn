@@ -18,7 +18,7 @@ Our smart contract, currently under development, is designed to facilitate on-ch
 
 ## Security Considerations
 
--   Network Security: Ensure that you deploy the contract on a secure Ethereum network. So far this contract has been tested on Sepolia!
+-   Network Security: Ensure that you deploy the contract on a secure Ethereum network. So far this contract has been tested on ETH-Sepolia and Polygon Amoy!
 -   Thorough Testing: Review and test the contract thoroughly to identify and mitigate potential security risks.
 -   Contact for Support: If there are any uncertainties or issues, don’t hesitate to reach out!
 <hr>
