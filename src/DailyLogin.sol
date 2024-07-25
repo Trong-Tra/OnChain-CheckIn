@@ -19,7 +19,13 @@ contract DailyLogin {
         User storage user = users[msg.sender];
         uint256 currentTime = block.timestamp;
 
-        if (currentTime > user.lastLogin + 1 days) {
+        // offset for UTC+7, you can adjust to fit your project timezone
+        uint256 offset = 7 * 60 * 60;
+
+        uint256 currentDay = (currentTime + offset) / 1 days;
+        uint256 lastLoginDay = (user.lastLogin + offset) / 1 days;
+
+        if (currentDay > lastLoginDay) {
             user.checkinCount++;
             user.lastLogin = currentTime;
             emit Login(msg.sender, currentTime);
