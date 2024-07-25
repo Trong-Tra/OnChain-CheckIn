@@ -6,6 +6,7 @@ contract DailyLogin {
     struct User {
         uint256 lastLogin;
         uint256 checkinCount;
+        uint256 streak;
     }
 
     mapping(address => User) public users;
@@ -13,6 +14,7 @@ contract DailyLogin {
     event Login(address indexed user, uint256 timestamp);
 
     /**
+     * @dev this is a send function
      * @notice this function check if the user log in on a new day
      */
     function login() public {
@@ -28,11 +30,18 @@ contract DailyLogin {
         if (currentDay > lastLoginDay) {
             user.checkinCount++;
             user.lastLogin = currentTime;
+
+            if (currentDay > lastLoginDay + 1) {
+                user.streak = 1;
+            } else {
+                user.streak++;
+            }
+
             emit Login(msg.sender, currentTime);
         }
     }
 
-    // getter
+    // call funcction
     function getCheckinCount(
         address userAddress
     ) public view returns (uint256) {
@@ -43,5 +52,10 @@ contract DailyLogin {
         address userAddress
     ) public view returns (uint256) {
         return users[userAddress].lastLogin;
+    }
+
+    function checkPoint(address userAddress) public view returns (uint256) {
+        User storage user = users[userAddress];
+        return user.checkinCount * (10 + (user.streak / 3) * 5);
     }
 }
